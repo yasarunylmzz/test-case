@@ -1,5 +1,5 @@
-module user-management-api
+module github.com/yasarunylmzz/test-case
 
 go 1.22.6
 
-require github.com/mattn/go-sqlite3 v1.14.24 // indirect
+require github.com/mattn/go-sqlite3 v1.14.24

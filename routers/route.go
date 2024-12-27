@@ -8,5 +8,6 @@ import (
 
 func routes() http.Handler{
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /", userPost)
+	mux.HandleFunc("POST /", UserPost)
+	return mux
 }
