@@ -10,6 +10,6 @@ import (
 
 func Routes() http.Handler{
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /", handlers.UserPost)
+	mux.HandleFunc("GET /", handlers.UserPost)
 	return mux
 }

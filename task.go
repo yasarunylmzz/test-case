@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func main(){
+func task(){
 	exampleA([]string{"aaaasd", "a", "aab", "aaabcd", "ef", "cssssssd", "fdz", "kf", "zc", "lklklklklklklklkl", "l"})
 	exampleB(9)
 }
