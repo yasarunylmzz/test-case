@@ -2,6 +2,8 @@ package routers
 
 import (
 	"net/http"
+
+	_ "github.com/yasarunylmzz/test-case/handlers"
 )
 
 
