@@ -13,18 +13,5 @@ func InitDB() (*sql.DB, error) {
         log.Fatal(err)
         return nil, err
     }
-
-    createTableSQL := `
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        email TEXT
-    );
-    `
-    _, err = db.Exec(createTableSQL)
-    if err != nil {
-        log.Fatal(err)
-        return nil, err
-    }
     return db, nil
 }
