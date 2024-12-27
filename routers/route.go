@@ -3,13 +3,13 @@ package routers
 import (
 	"net/http"
 
-	_ "github.com/yasarunylmzz/test-case/handlers"
+	"github.com/yasarunylmzz/test-case/handlers"
 )
 
 
 
-func routes() http.Handler{
+func Routes() http.Handler{
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /", UserPost)
+	mux.HandleFunc("POST /", handlers.UserPost)
 	return mux
 }
