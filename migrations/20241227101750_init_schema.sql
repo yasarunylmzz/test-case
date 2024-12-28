@@ -7,7 +7,7 @@ CREATE TABLE user(
     email VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+INSERT INTO user(name, surname, email) VALUES('John', 'Doe', 'johndoe@example.net');
 -- +goose StatementEnd
 
 -- +goose Down

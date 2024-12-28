@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 
+	_ "github.com/mattn/go-sqlite3"
+
 	"github.com/yasarunylmzz/test-case/routers"
 )
 
