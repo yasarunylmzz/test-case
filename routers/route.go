@@ -6,10 +6,10 @@ import (
 	"github.com/yasarunylmzz/test-case/handlers"
 )
 
-
-
-func Routes() http.Handler{
+func SetupRoutes() http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /", handlers.UserPost)
+	mux.HandleFunc("/api/users", handlers.UserPost)
+	mux.HandleFunc("/api/users/update", handlers.UserUpdate)
+	mux.HandleFunc("/api/users/delete", handlers.UserDelete)
 	return mux
 }

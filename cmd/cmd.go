@@ -20,9 +20,11 @@ func CmdServer(){
 
 	server := http.Server{
 		Addr: ":3030",
-		Handler: routers.Routes(),
+		Handler: routers.SetupRoutes(), // SetupRoutes() returns http.Handler
 	}
 
-	fmt.Println("Listing on :3030")
-	server.ListenAndServe()
+	fmt.Println("Listening on :3030") // Fixed typo in "Listening"
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatal(err) // Handle potential server errors
+	}
 }
