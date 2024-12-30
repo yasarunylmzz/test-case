@@ -1,0 +1,22 @@
+DB_FILE = ./db/database.sqlite
+MIGRATIONS_DIR = ./migrations
+GOOSE = $(HOME)/go/bin/goose
+
+
+init-db:
+	mkdir -p $(dir $(DB_FILE))
+	touch $(DB_FILE)
+
+create-migration:
+	$(GOOSE) -dir $(MIGRATIONS_DIR) create $(name) sql
+
+migrate-up:
+	$(GOOSE) -dir $(MIGRATIONS_DIR) sqlite3 $(DB_FILE) up
+
+migrate-down:
+	$(GOOSE) -dir $(MIGRATIONS_DIR) sqlite3 $(DB_FILE) down
+
+install-goose:
+	go install github.com/pressly/goose/v3/cmd/goose@latest
+
+setup: install-goose init-db migrate-up
