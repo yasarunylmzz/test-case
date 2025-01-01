@@ -14,7 +14,8 @@ export default function Home() {
   const [data, setData] = useState<User[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<Set<number>>(new Set());
   const [loading, setLoading] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     id: 0,
     name: "",
@@ -84,7 +85,7 @@ export default function Home() {
           surname: userToUpdate.surname,
           email: userToUpdate.email,
         });
-        setIsModalOpen(true);
+        setIsUpdateModalOpen(true);
       } else {
         console.log("User not found");
       }
@@ -93,7 +94,19 @@ export default function Home() {
     }
   };
 
-  const handleModalSubmit = async () => {
+  const handleCreateModalSubmit = async () => {
+    try {
+      const createdUser = await createUser(formData);
+      setData((prevData = []) => [...prevData, createdUser]);
+      setIsCreateModalOpen(false);
+      setFormData({ id: 0, name: "", surname: "", email: "" });
+      console.log("User created successfully");
+    } catch (error) {
+      console.error("Error creating user:", error);
+    }
+  };
+
+  const handleUpdateModalSubmit = async () => {
     try {
       const updatedUser = await updateUser(formData);
       setData((prevData) =>
@@ -101,7 +114,7 @@ export default function Home() {
           user.id === updatedUser.id ? updatedUser : user
         )
       );
-      setIsModalOpen(false);
+      setIsUpdateModalOpen(false);
       setFormData({ id: 0, name: "", surname: "", email: "" });
       console.log("User updated successfully");
     } catch (error) {
@@ -126,7 +139,7 @@ export default function Home() {
           </tr>
         </thead>
         <tbody className="bg-gray-700 text-black">
-          {data.length > 0 ? (
+          {Array.isArray(data) && data.length > 0 ? (
             data.map((user) => (
               <tr key={user.id} className="hover:bg-gray-600">
                 <td className="px-4 py-2 border border-gray-700">
@@ -144,7 +157,7 @@ export default function Home() {
                   {user.surname}
                 </td>
                 <td className="px-4 py-2 border border-gray-700">
-                  {user.created_at.split("T")[0]}
+                  {new Date(user.created_at).toLocaleDateString()}
                 </td>
               </tr>
             ))
@@ -158,7 +171,7 @@ export default function Home() {
       <div className="flex gap-4">
         <button
           className="bg-green-700 p-2 rounded-md hover:bg-green-800"
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsCreateModalOpen(true)}
         >
           Create
         </button>
@@ -176,7 +189,8 @@ export default function Home() {
         </button>
       </div>
 
-      {isModalOpen && (
+      {/* Create User Modal */}
+      {isCreateModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-12 rounded-lg shadow-lg">
             <h2 className="text-lg font-bold mb-4 text-black">Create User</h2>
@@ -222,13 +236,75 @@ export default function Home() {
             <div className="flex justify-end gap-2">
               <button
                 className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => setIsCreateModalOpen(false)}
               >
                 Cancel
               </button>
               <button
                 className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-                onClick={handleModalSubmit}
+                onClick={handleCreateModalSubmit}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Update User Modal */}
+      {isUpdateModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-12 rounded-lg shadow-lg">
+            <h2 className="text-lg font-bold mb-4 text-black">Update User</h2>
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-black">
+                Name
+              </label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, name: e.target.value }))
+                }
+                className="border border-gray-500 text-black rounded-md p-2 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-black">
+                Surname
+              </label>
+              <input
+                type="text"
+                value={formData.surname}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, surname: e.target.value }))
+                }
+                className="border border-gray-500 text-black rounded-md p-2 w-full"
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-black">
+                Email
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, email: e.target.value }))
+                }
+                className="border border-gray-500 text-black rounded-md p-2 w-full"
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <button
+                className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600"
+                onClick={() => setIsUpdateModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+                onClick={handleUpdateModalSubmit}
               >
                 Submit
               </button>

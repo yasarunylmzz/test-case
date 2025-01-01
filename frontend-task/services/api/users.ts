@@ -39,8 +39,12 @@ export const createUser = async (data: {
   });
 
   if (!response.ok) {
-    const errorResponse = await response.json();
-    throw new Error(errorResponse.error || "Failed to create user");
+    try {
+      const errorResponse = await response.json();
+      throw new Error(errorResponse.error || "Failed to create user");
+    } catch (e) {
+      throw new Error("Failed to parse error response");
+    }
   }
 
   return await response.json();
