@@ -1,4 +1,4 @@
-# Project Name
+# TEST-CASE
 
 This project consists of a Go backend and a frontend built with Next.js. The backend handles various tasks, while the frontend provides a user interface for interacting with the application.
 
