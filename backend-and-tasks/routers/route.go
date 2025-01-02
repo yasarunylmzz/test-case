@@ -10,13 +10,14 @@ import (
 func SetupRoutes() http.Handler {
 	mux := http.NewServeMux()
 
+	// CORS
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:3000"}, 
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders: []string{"Content-Type"},
 	})
 
-
+	// ROUTES FOR USER
 	mux.HandleFunc("/api/users", handlers.UserPost)
 	mux.HandleFunc("/api/users/update", handlers.UserUpdate)
 	mux.HandleFunc("/api/users/delete", handlers.UserDelete)

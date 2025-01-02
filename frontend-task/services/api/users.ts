@@ -1,5 +1,7 @@
+// API_BASE_URL is the base URL for the API
 const API_BASE_URL = "http://localhost:3030/api/users";
 
+// GetUsers retrieves all users
 export const getUsers = async () => {
   const response = await fetch(`${API_BASE_URL}/get`);
   if (!response.ok) {
@@ -7,7 +9,7 @@ export const getUsers = async () => {
   }
   return await response.json();
 };
-
+// DeleteUser deletes an existing user
 export const deleteUser = async (id: number) => {
   const response = await fetch(`${API_BASE_URL}/delete`, {
     method: "DELETE",
@@ -24,7 +26,7 @@ export const deleteUser = async (id: number) => {
 
   return await response.json();
 };
-
+// CreateUser creates a new user
 export const createUser = async (data: {
   name: string;
   surname: string;
@@ -49,7 +51,7 @@ export const createUser = async (data: {
 
   return await response.json();
 };
-
+// UpdateUser updates an existing user
 export const updateUser = async (data: {
   id: number;
   name: string;

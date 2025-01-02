@@ -9,7 +9,7 @@ import (
 	"github.com/yasarunylmzz/test-case/models"
 )
 
-
+// UserPost creates a new user
 func UserPost(w http.ResponseWriter, r *http.Request) {
 	var data models.User
 	database.InitDB()
@@ -35,7 +35,7 @@ func UserPost(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
+// UserUpdate updates an existing user
 func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPut {
 		log.Printf("Invalid method: %s, expected PUT\n", r.Method)
@@ -67,6 +67,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
 }
 
+// UserDelete deletes an existing user
 func UserDelete(w http.ResponseWriter, r *http.Request) {
 	var data models.User
 	database.InitDB()
@@ -97,7 +98,7 @@ func UserDelete(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
 }
 
-
+// UserGet retrieves all users
 func UserGet(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Only GET method is allowed", http.StatusMethodNotAllowed)
