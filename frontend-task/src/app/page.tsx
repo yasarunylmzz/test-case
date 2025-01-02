@@ -97,7 +97,12 @@ export default function Home() {
   const handleCreateModalSubmit = async () => {
     try {
       const createdUser = await createUser(formData);
-      setData((prevData = []) => [...prevData, createdUser]);
+      setData((prevData) => {
+        if (!Array.isArray(prevData)) {
+          prevData = [];
+        }
+        return [...prevData, createdUser];
+      });
       setIsCreateModalOpen(false);
       setFormData({ id: 0, name: "", surname: "", email: "" });
       console.log("User created successfully");
@@ -195,10 +200,14 @@ export default function Home() {
           <div className="bg-white p-12 rounded-lg shadow-lg">
             <h2 className="text-lg font-bold mb-4 text-black">Create User</h2>
             <div className="mb-2">
-              <label className="block text-sm font-medium text-black">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-black"
+              >
                 Name
               </label>
               <input
+                id="name"
                 type="text"
                 value={formData.name}
                 onChange={(e) =>
@@ -208,10 +217,14 @@ export default function Home() {
               />
             </div>
             <div className="mb-2">
-              <label className="block text-sm font-medium text-black">
+              <label
+                htmlFor="surname"
+                className="block text-sm font-medium text-black"
+              >
                 Surname
               </label>
               <input
+                id="surname"
                 type="text"
                 value={formData.surname}
                 onChange={(e) =>
@@ -221,10 +234,14 @@ export default function Home() {
               />
             </div>
             <div className="mb-2">
-              <label className="block text-sm font-medium text-black">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-black"
+              >
                 Email
               </label>
               <input
+                id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) =>
@@ -257,10 +274,14 @@ export default function Home() {
           <div className="bg-white p-12 rounded-lg shadow-lg">
             <h2 className="text-lg font-bold mb-4 text-black">Update User</h2>
             <div className="mb-2">
-              <label className="block text-sm font-medium text-black">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-black"
+              >
                 Name
               </label>
               <input
+                id="name"
                 type="text"
                 value={formData.name}
                 onChange={(e) =>
@@ -270,10 +291,14 @@ export default function Home() {
               />
             </div>
             <div className="mb-2">
-              <label className="block text-sm font-medium text-black">
+              <label
+                htmlFor="surname"
+                className="block text-sm font-medium text-black"
+              >
                 Surname
               </label>
               <input
+                id="surname"
                 type="text"
                 value={formData.surname}
                 onChange={(e) =>
@@ -283,10 +308,14 @@ export default function Home() {
               />
             </div>
             <div className="mb-2">
-              <label className="block text-sm font-medium text-black">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-black"
+              >
                 Email
               </label>
               <input
+                id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) =>
